@@ -2,6 +2,8 @@
 
 > Grunt task to update bower, npm, and other arbitrary update tasks
 
+Getting ready to add travis.
+
 ## Getting Started
 This plugin requires Grunt `~0.4.2`
 
