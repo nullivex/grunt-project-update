@@ -1,8 +1,6 @@
-# grunt-project-update
+# grunt-project-update [![Build Status](https://travis-ci.org/snailjs/grunt-project-update.png?branch=master)](https://travis-ci.org/snailjs/grunt-project-update)
 
 > Grunt task to update bower, npm, and other arbitrary update tasks
-
-Getting ready to add travis.
 
 ## Getting Started
 This plugin requires Grunt `~0.4.2`
