@@ -14,7 +14,7 @@ module.exports = function(grunt) {
       all: [
         "Gruntfile.js",
         "tasks/*.js",
-        "<%= nodeunit.tests %>"
+        "*.test.js"
       ],
       options: {
         jshintrc: ".jshintrc"
@@ -27,10 +27,8 @@ module.exports = function(grunt) {
       src: ["*.test.js"]
     },
     watch: {
-      projectUpdate: {
-        files: ["*.js"],
-        tasks: ["test"]
-      }
+      files: ["*.js"],
+      tasks: ["test"]
     },
     projectUpdate: {
       projectUpdate: {
@@ -51,9 +49,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-mocha-test")
   grunt.loadNpmTasks("grunt-contrib-jshint")
   grunt.loadNpmTasks("grunt-contrib-clean")
+  grunt.loadNpmTasks("grunt-contrib-watch")
   //tasks
   grunt.registerTask("test", ["clean", "projectUpdate", "mochaTest"])
   grunt.registerTask("update",["projectUpdate"])
-  grunt.registerTask("default", ["jshint", "test"])
+  grunt.registerTask("default", ["jshint", "test", "watch"])
 
 }
