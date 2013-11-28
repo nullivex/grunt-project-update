@@ -26,12 +26,14 @@ To activate plugin please define a default config similar to this.
 ```js
 grunt.initConfig({
   projectUpdate: {
-    options: {
-      commands: [
-        {cmd: "npm", args: ["install"]},
-        {cmd: "npm", args: ["update"]},
-        {cmd: "npm", args: ["prune"]}
-      ]
+    projectUpdate: {
+      options: {
+        commands: [
+          {cmd: "npm", args: ["install"]},
+          {cmd: "npm", args: ["update"]},
+          {cmd: "npm", args: ["prune"]}
+        ]
+      }
     }
   }
 })
@@ -67,15 +69,17 @@ If however you wanted to also do the same process with bower you could do this.
 ```js
 grunt.initConfig({
   projectUpdate: {
-    options: {
-      commands: {[
-        {cmd: "npm", args: ["install"]},
-        {cmd: "npm", args: ["update"]},
-        {cmd: "npm", args: ["prune"]},
-        {cmd: "bower", args: ["install"]},
-        {cmd: "bower", args: ["update"]},
-        {cmd: "bower", args: ["prune"]}
-      ]}
+    projectUpdate: {
+      options: {
+        commands: {[
+          {cmd: "npm", args: ["install"]},
+          {cmd: "npm", args: ["update"]},
+          {cmd: "npm", args: ["prune"]},
+          {cmd: "bower", args: ["install"]},
+          {cmd: "bower", args: ["update"]},
+          {cmd: "bower", args: ["prune"]}
+        ]}
+      }
     }
   }
 })
@@ -87,15 +91,17 @@ If the working directory needed to be changing the config would look like this.
 var my_cwd = "/foo/bar"
 grunt.initConfig({
   projectUpdate: {
-    options: {
-      commands: {[
-        {cmd: "npm", args: ["install"], opts: {cwd: my_cwd}},
-        {cmd: "npm", args: ["update"], opts: {cwd: my_cwd}},
-        {cmd: "npm", args: ["prune"], opts: {cwd: my_cwd}},
-        {cmd: "bower", args: ["install"], opts: {cwd: my_cwd}},
-        {cmd: "bower", args: ["update"], opts: {cwd: my_cwd}},
-        {cmd: "bower", args: ["prune"], opts: {cwd: my_cwd}}
-      ]}
+    projectUpdate: {
+      options: {
+        commands: {[
+          {cmd: "npm", args: ["install"], opts: {cwd: my_cwd}},
+          {cmd: "npm", args: ["update"], opts: {cwd: my_cwd}},
+          {cmd: "npm", args: ["prune"], opts: {cwd: my_cwd}},
+          {cmd: "bower", args: ["install"], opts: {cwd: my_cwd}},
+          {cmd: "bower", args: ["update"], opts: {cwd: my_cwd}},
+          {cmd: "bower", args: ["prune"], opts: {cwd: my_cwd}}
+        ]}
+      }
     }
   }
 })

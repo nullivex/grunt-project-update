@@ -33,12 +33,14 @@ module.exports = function(grunt) {
       }
     },
     projectUpdate: {
-      options: {
-        commands: [
-          {cmd: "npm", args: ["install"]},
-          {cmd: "npm", args: ["update"]},
-          {cmd: "npm", args: ["prune"]}
-        ]
+      projectUpdate: {
+        options: {
+          commands: [
+            {cmd: "npm", args: ["install"]},
+            {cmd: "npm", args: ["update"]},
+            {cmd: "npm", args: ["prune"]}
+          ]
+        }
       }
     }
   })
