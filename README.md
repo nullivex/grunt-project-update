@@ -140,6 +140,10 @@ Please follow the NPM coding style: https://npmjs.org/doc/coding-style.html
 
 ## Release History
 
+### 0.2.2
+
+Updated project properties for package.json
+
 ### 0.2.1
 
 Updated project name in package.json
