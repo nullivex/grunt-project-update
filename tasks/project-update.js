@@ -5,22 +5,64 @@
  * Copyright (c) 2013 Bryan Tong
  * Licensed under the LGPLv3 license.
  */
+var fs = require('fs')
 
-module.exports = function(grunt){
+module.exports = exports = function(grunt){
   grunt.registerMultiTask(
-    "projectUpdate",
-    "Grunt task to update bower, npm, and other arbitrary update tasks",
+    'projectUpdate',
+    'Grunt task to update bower, npm, and other arbitrary update tasks',
     function(){
-      var done = this.async()
-      // Merge task-specific and/or target-specific options with these defaults.
-      var options = this.options({
-        commands: []
+      var that = this
+        , done = that.async()
+        , commands = this.data.commands || []
+        , cwd = this.data.cwd || null
+      /**
+       * Manager Definitions
+       * @type {{packageManager: {enabled: boolean, file: string, commands: Array}}
+       */
+      var managers = {
+        npm: {
+          enabled: false,
+          file: 'package.json',
+          commands: [
+            {cmd: 'npm', args: ['install'], cwd: cwd},
+            {cmd: 'npm', args: ['update'], cwd: cwd},
+            {cmd: 'npm', args: ['prune'], cwd: cwd}
+          ]
+        },
+        bower: {
+          enabled: false,
+          file: 'bower.json',
+          commands: [
+            {cmd: 'bower', args: ['install'], cwd: cwd},
+            {cmd: 'bower', args: ['update'], cwd: cwd},
+            {cmd: 'bower', args: ['prune'], cwd: cwd}
+          ]
+        }
+      }
+      //enable detected managers
+      Object.keys(managers).forEach(function(key){
+        var manager = managers[key]
+        if(fs.existsSync(manager.file)){
+          manager.enabled = true
+        } else if(true === that.data[key]){
+          manager.enabled = true
+        }
       })
-
-      require("async").eachSeries(
-        options.commands,
+      //setup commands to run
+      Object.keys(managers).forEach(function(key){
+        var manager = managers[key]
+        if(manager.enabled){
+          manager.commands.forEach(function(cmd){
+            commands.push(cmd)
+          })
+        }
+      })
+      //run the queued commands
+      require('async').eachSeries(
+        commands,
         function(opts,fn){
-          grunt.log.writeln("Executing " + opts.cmd + " " + opts.args.join(" "))
+          grunt.log.writeln('Executing ' + opts.cmd + ' ' + opts.args.join(' '))
           grunt.util.spawn(opts,function(err,res){
             if(err) fn(err)
             else {

@@ -26,18 +26,13 @@ To activate plugin please define a default config similar to this.
 ```js
 grunt.initConfig({
   projectUpdate: {
-    projectUpdate: {
-      options: {
-        commands: [
-          {cmd: "npm", args: ["install"]},
-          {cmd: "npm", args: ["update"]},
-          {cmd: "npm", args: ["prune"]}
-        ]
-      }
-    }
+    update: {}
   }
 })
 ```
+
+It will autodetect `package.json` and `bower.json` and update them appropriately.
+This requires you have `npm` and/or `bower` installed globally.
 
 ### Options
 
@@ -47,65 +42,96 @@ Default value: []
 
 An array of commands to run in this format
 ```js
-{cmd: "npm", args: ["prune"]}
+{cmd: 'npm', args: ['prune']}
 ```
 
 or with the CWD (current working directory)
 ```js
-{cmd: "npm", args: ["prune"], opts: {cwd: "/foo"}}
+{cmd: 'npm', args: ['prune'], opts: {cwd: '/foo'}}
 ```
+
+This is useful for specifying custom commands to run during the update.
+
+#### cwd
+Type: `String`
+Default value: null
+
+This will change the current working directory the commands are ran in.
+
+If say bower is in a different folder use two separate targets like so:
+
+```js
+grunt.initConfig({
+  projectUpdate: {
+    npm: {},
+    bower: {cwd: 'assets'}
+  }
+})
+```
+
+#### npm
+Type: `Boolean`
+Default value: false
+
+This will enable or disable `npm` explicitly.
+
+#### bower
+Type: `Boolean`
+Default value: false
+
+This will enable or disable `bower` explicitly.
 
 ### Usage Examples
 
-#### Default Options
+#### Default Usage
 
-By default it will not run any commands
-
-Thus no initial config is needed.
-
-#### Custom Options
-If however you wanted to also do the same process with bower you could do this.
+The default functionality will auto detect bower and npm and update them
+appropriately.
 
 ```js
 grunt.initConfig({
   projectUpdate: {
-    projectUpdate: {
-      options: {
-        commands: {[
-          {cmd: "npm", args: ["install"]},
-          {cmd: "npm", args: ["update"]},
-          {cmd: "npm", args: ["prune"]},
-          {cmd: "bower", args: ["install"]},
-          {cmd: "bower", args: ["update"]},
-          {cmd: "bower", args: ["prune"]}
-        ]}
-      }
+    update: {}
+  }
+})
+```
+
+#### Enable NPM/Bower Explicitly
+
+If you have non-standard file locations use something like this:
+
+```js
+grunt.initConfig({
+  projectUpdate: {
+    update: {
+      npm: true,
+      bower: true
     }
   }
 })
 ```
 
-If the working directory needed to be changing the config would look like this.
+#### Arbitrary Commands
+
+To add your own arbitrary commands try this:
 
 ```js
-var my_cwd = "/foo/bar"
 grunt.initConfig({
   projectUpdate: {
-    projectUpdate: {
-      options: {
-        commands: {[
-          {cmd: "npm", args: ["install"], opts: {cwd: my_cwd}},
-          {cmd: "npm", args: ["update"], opts: {cwd: my_cwd}},
-          {cmd: "npm", args: ["prune"], opts: {cwd: my_cwd}},
-          {cmd: "bower", args: ["install"], opts: {cwd: my_cwd}},
-          {cmd: "bower", args: ["update"], opts: {cwd: my_cwd}},
-          {cmd: "bower", args: ["prune"], opts: {cwd: my_cwd}}
-        ]}
-      }
+    update: {
+      npm: true,
+      bower: true,
+      commands: [
+        {cmd: 'my-package-manager', args: ['install']},
+        {cmd: 'my-package-manager', args: ['update']},
+        {cmd: 'my-package-manager', args: ['prune']}
+      ]
     }
   }
 })
 ```
+
+Just not that commands set there are used first and then the others will be ran.
 
 ## Contributing
 Commits and changes are welcome.
@@ -113,6 +139,10 @@ Commits and changes are welcome.
 Please follow the NPM coding style: https://npmjs.org/doc/coding-style.html
 
 ## Release History
+
+### 0.2.0
+
+API rewrite with automatic package manager detection.
 
 ### 0.1.0
 

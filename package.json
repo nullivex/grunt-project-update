@@ -1,7 +1,7 @@
 {
   "name": "grunt-contrib-update",
   "description": "Grunt task to update bower, npm, and other arbitrary update tasks",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "authors": [
     {
       "name": "Bryan Tong",
@@ -16,7 +16,7 @@
   ],
   "keywords": [
     "grunt",
-    "contrib",
+    "project",
     "update",
     "bower",
     "npm"

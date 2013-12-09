@@ -2,7 +2,7 @@
   "indent": 2,
   "maxlen": 120,
   "asi": true,
-  "quotmark": "double",
+  "quotmark": "single",
   "laxcomma": true,
   "smarttabs": true,
   "trailing": true,
@@ -21,8 +21,6 @@
   "unused": true,
   "latedef": true,
   "onecase": true,
-  "-W012": false,
-  "-W013": false,
   "globals": {
     "describe": false,
     "it": false,
@@ -30,9 +28,6 @@
     "before": false,
     "beforeEach": false,
     "after": false,
-    "afterEach": false,
-    "module": false,
-    "inject": false,
-    "define": false
+    "afterEach": false
   }
 }
