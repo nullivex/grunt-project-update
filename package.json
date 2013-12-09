@@ -1,17 +1,24 @@
 {
   "name": "grunt-project-update",
   "description": "Grunt task to update bower, npm, and other arbitrary update tasks",
-  "version": "0.2.1",
+  "version": "0.2.2",
+  "homepage": "https://github.com/snailjs/grunt-project-update",
+  "bugs": "https://github.com/snailjs/grunt-project-update/issues",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/snailjs/grunt-project-update.git"
+  },
   "authors": [
     {
       "name": "Bryan Tong",
       "email": "contact@nullivex.com",
-      "homepage": "http://bryantong.com"
+      "homepage": "https://github.com/nullivex"
     },
     {
       "name": "Tony Butler",
       "email": "spudz76@gmail.com",
-      "homepage": "http://github.com/spudz76"
+      "homepage": "https://github.com/spudz76"
     }
   ],
   "keywords": [
