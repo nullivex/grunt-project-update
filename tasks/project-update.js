@@ -6,6 +6,7 @@
  * Licensed under the LGPLv3 license.
  */
 var fs = require('fs')
+  , path = require('path')
 
 module.exports = exports = function(grunt){
   grunt.registerMultiTask(
@@ -58,10 +59,15 @@ module.exports = exports = function(grunt){
           })
         }
       })
+      //cache current working dir
+      var _cwd = process.cwd()
       //run the queued commands
       require('async').eachSeries(
         commands,
         function(opts,fn){
+          if(opts.cwd && fs.existsSync(path.resolve(opts.cwd))){
+            process.chdir(path.resolve(opts.cwd))
+          }
           grunt.log.writeln('Executing ' + opts.cmd + ' ' + opts.args.join(' '))
           grunt.util.spawn(opts,function(err,res){
             if(err) fn(err)
@@ -77,6 +83,8 @@ module.exports = exports = function(grunt){
           done()
         }
       )
+      //restore working dir
+      process.chdir(_cwd)
     }
   )
 }

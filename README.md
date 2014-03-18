@@ -140,18 +140,17 @@ Please follow the NPM coding style: https://npmjs.org/doc/coding-style.html
 
 ## Release History
 
-### 0.2.2
+### 0.2.3
+* Fixed issue with working directories on custom commands
 
-Updated project properties for package.json
+### 0.2.2
+* Updated project properties for package.json
 
 ### 0.2.1
-
-Updated project name in package.json
+* Updated project name in package.json
 
 ### 0.2.0
-
-API rewrite with automatic package manager detection.
+* API rewrite with automatic package manager detection.
 
 ### 0.1.0
-
-Initial release and port from custom task right in the gruntfile
+* Initial release and port from custom task right in the gruntfile
