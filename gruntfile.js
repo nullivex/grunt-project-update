@@ -36,7 +36,7 @@ module.exports = function(grunt) {
       tasks: ['test']
     },
     projectUpdate: {
-      update: {npm: true}
+      update: {}
     }
   })
 
