@@ -8,57 +8,61 @@
 var fs = require('fs')
   , path = require('path')
 
+
+/**
+ * Export grunt plugin
+ * @param {object} grunt
+ * @type {exports}
+ */
 module.exports = exports = function(grunt){
   grunt.registerMultiTask(
     'projectUpdate',
     'Grunt task to update bower, npm, and other arbitrary update tasks',
     function(){
       var that = this
-        , done = that.async()
-        , commands = this.data.commands || []
-        , cwd = this.data.cwd || null
+      var done = that.async()
+      var commands = this.data.commands || []
+      var cwd = this.data.cwd || null
       /**
        * Manager Definitions
-       * @type {{packageManager: {enabled: boolean, file: string, commands: Array}}
+       * @type {object}
        */
       var managers = {
         npm: {
           enabled: false,
           file: 'package.json',
           commands: [
+            {cmd: 'npm', args: ['prune'], cwd: cwd},
             {cmd: 'npm', args: ['install'], cwd: cwd},
-            {cmd: 'npm', args: ['update'], cwd: cwd},
-            {cmd: 'npm', args: ['prune'], cwd: cwd}
+            {cmd: 'npm', args: ['update'], cwd: cwd}
           ]
         },
         bower: {
           enabled: false,
           file: 'bower.json',
           commands: [
+            {cmd: 'bower', args: ['prune'], cwd: cwd},
             {cmd: 'bower', args: ['install'], cwd: cwd},
-            {cmd: 'bower', args: ['update'], cwd: cwd},
-            {cmd: 'bower', args: ['prune'], cwd: cwd}
+            {cmd: 'bower', args: ['update'], cwd: cwd}
           ]
         }
       }
       //enable detected managers
-      Object.keys(managers).forEach(function(key){
-        var manager = managers[key]
-        if(fs.existsSync(manager.file)){
-          manager.enabled = true
+      for(var key in managers){
+        if(!managers.hasOwnProperty(key)) continue
+        //auto enable the module by reading the package file
+        if(fs.existsSync(managers[key].file)){
+          //however only do this if the user hasnt specifically disabled it
+          if(!that.data.hasOwnProperty(key) || true === that.data[key])
+            managers[key].enabled = true
         } else if(true === that.data[key]){
-          manager.enabled = true
+          managers[key].enabled = true
         }
-      })
-      //setup commands to run
-      Object.keys(managers).forEach(function(key){
-        var manager = managers[key]
-        if(manager.enabled){
-          manager.commands.forEach(function(cmd){
-            commands.push(cmd)
-          })
+        //if the manager is enabled, add its commands for exec
+        if(managers[key].enabled){
+          commands = commands.concat(managers[key].commands)
         }
-      })
+      }
       //cache current working dir
       var _cwd = process.cwd()
       //run the queued commands

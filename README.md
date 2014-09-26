@@ -140,6 +140,12 @@ Please follow the NPM coding style: https://npmjs.org/doc/coding-style.html
 
 ## Release History
 
+### 0.2.4
+* Fixes #2 which would enable npm if `package.json` exists even if npm is
+specifically disabled at runtime
+* Changed the order to prune, install, update to stop the update of
+packages that have been dropped
+
 ### 0.2.3
 * Fixed issue with working directories on custom commands
 

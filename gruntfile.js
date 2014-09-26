@@ -6,6 +6,11 @@
  * Licensed under the LGPLv3 license.
  */
 
+
+/**
+ * Grunt config
+ * @param {object} grunt
+ */
 module.exports = function(grunt) {
 
   // Project configuration.
@@ -31,7 +36,7 @@ module.exports = function(grunt) {
       tasks: ['test']
     },
     projectUpdate: {
-      update: {}
+      update: {npm: true}
     }
   })
 
